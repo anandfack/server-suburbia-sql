@@ -1,0 +1,66 @@
+<div
+  class="tab-pane fade"
+  id="add-merchandise"
+  role="tabpanel"
+  aria-labelledby="profile-tab"
+>
+  <form action="/admin/merchandise" method="POST" enctype="multipart/form-data">
+    <div class="card shadow mb-4 mt-2">
+      <div class="card-body">
+        <div class="form-group">
+          <label for="name">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter title"
+            name="title"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="name">Price</label>
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Enter price"
+            name="price"
+            required
+          />
+        </div>  
+        <div class="form-group">
+          <label for="name">Size</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter size"
+            name="size"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="name">Shopee</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter shopee url"
+            name="shopeeUrl"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="name">Tokopedia</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter tokopedia url"
+            name="tokopediaUrl"
+            required
+          />
+        </div>
+        <div class="form-group">
+            <label for="name">Image</label>
+            <input type="file" class="form-control" name="image" multiple required>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
