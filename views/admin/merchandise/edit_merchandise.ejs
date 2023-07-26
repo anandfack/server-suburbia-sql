@@ -18,49 +18,53 @@
             required
           />
         </div>
-        <div class="form-group">
-          <label for="name">Price</label>
-          <input
-            type="number"
-            class="form-control"
-            placeholder="Enter price"
-            name="price"
-            value="<%= merchandise.price %>"
-            required
-          />
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="name">Price</label>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Enter price"
+              name="price"
+              value="<%= merchandise.price %>"
+              required
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="name">Size</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter city"
+              name="size"
+              value="<%= merchandise.size %>"
+              required
+            />
+          </div>
         </div>
-        <div class="form-group">
-          <label for="name">Size</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter city"
-            name="size"
-            value="<%= merchandise.size %>"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="name">Shopee</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter city"
-            name="shopeeUrl"
-            value="<%= merchandise.shopeeUrl %>"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="name">Tokopedia</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter city"
-            name="tokopediaUrl"
-            value="<%= merchandise.tokopediaUrl %>"
-            required
-          />
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="name">Shopee</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter city"
+              name="shopeeUrl"
+              value="<%= merchandise.shopeeUrl %>"
+              required
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="name">Tokopedia</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter city"
+              name="tokopediaUrl"
+              value="<%= merchandise.tokopediaUrl %>"
+              required
+            />
+          </div>
         </div>
         <div class="form-group">
             <label for="name">Image</label>

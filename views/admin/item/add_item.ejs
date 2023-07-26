@@ -7,62 +7,86 @@
   <form action="/admin/item" method="POST" enctype="multipart/form-data">
     <div class="card shadow mb-4 mt-2">
       <div class="card-body">
-        <div class="form-group">
-          <label for="name">Title</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter title"
-            name="title"
-            required
-          />
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="name">Title</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter title"
+              name="title"
+              required
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="name">Category</label>
+            <select id="select-state" name="categoryId">
+              <option value="">--- select optional category ---</option>
+              <% for(let i = 0; i < category.length; i++){ %>
+                <option value="<%= category[i].id %>"><%= i + 1 %>. <%= category[i].name %></option>
+              <% } %>
+            </select>
+          </div>  
         </div>
-        <div class="form-group">
-          <label for="name">City</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter city"
-            name="city"
-            required
-          />
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="name">City</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter city"
+              name="city"
+              required
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="name">Organized by</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter organizer"
+              name="organizer"
+              required
+            />
+          </div>
         </div>
-        <div class="form-group col-md-3">
-          <label for="name">Date</label>
-          <input
-            type="date"
-            class="form-control"
-            placeholder="Enter date"
-            name="date"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="name">Organized by</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter organizer"
-            name="organizer"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="name">Category</label>
-          <select class="form-control" name="categoryId">
-            <option value="">--- Category ---</option>
-            <% for(let i = 0; i < category.length; i++){ %>
-              <option value="<%= category[i].id %>"><%= category[i].name %></option>
-            <% } %>
-          </select>
-        </div>
-        <div class="form-group">
-            <label for="name">Image</label>
-            <input type="file" class="form-control" name="image" multiple required>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="name">Date</label>
+            <input
+              type="date"
+              class="form-control"
+              placeholder="Enter date"
+              name="date"
+              required
+            />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="name">Start Hour</label>
+            <input
+              type="time"
+              class="form-control"
+              name="startHour"
+              required
+            />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="name">End Hour</label>
+            <input
+              type="time"
+              class="form-control"
+              name="endHour"
+              required
+            />
+          </div>
         </div>
         <div class="form-group">
             <label for="name">Description</label>
             <textarea name="about" class="form-control"></textarea>
+        </div>
+          <div class="form-group col-md-4">
+            <label for="name">Image</label>
+            <input type="file" class="form-control" name="image" multiple required>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
   </form>

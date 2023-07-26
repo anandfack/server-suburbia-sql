@@ -38,6 +38,14 @@ const Item = sequelize.define("Item", {
     type: DataTypes.DATEONLY,
     allowNull: false,
   },
+  startHour: {
+    type: DataTypes.TIME,
+    allowNull: false,
+  },
+  endHour: {
+    type: DataTypes.TIME,
+    allowNull: false,
+  },
   organizer: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -220,7 +228,7 @@ module.exports = {
 }
 
 // Sinkronisasi model dengan database
-sequelize
+// sequelize
 // .sync()
 // .then(() => {
 //   console.log("Tabel berhasil dibuat")

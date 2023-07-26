@@ -120,4 +120,12 @@
 <%- include('../../partials/script.ejs') %>
 <script>
   CKEDITOR.replace("about")
-</script>
+
+  new TomSelect("#select-state",{
+        create: false,
+        sortField: {
+            field: "text",
+            direction: "asc"
+        }
+    });
+    </script>
