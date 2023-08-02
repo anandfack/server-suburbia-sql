@@ -774,7 +774,7 @@ const viewItem = async (req, res) => {
 const addItem = async (req, res) => {
   try {
     // get all data from body
-    const { categoryId, title, city, date, startHour, endHour, organizer, about } = req.body
+    const { categoryId, title, city, date, startHour, endHour, organizer, about, artist, location } = req.body
     
     // condition if create with images
     if (req.files.length > 0) {
@@ -794,6 +794,8 @@ const addItem = async (req, res) => {
         endHour,
         organizer,
         description: about,
+        artist,
+        location,
       })
       await category.addItem(newItem)
 
@@ -903,7 +905,7 @@ const editItem = async (req, res) => {
     const { id } = req.params
     
     // get all data from boyd
-    const { categoryId, title, date, startHour, endHour, city, organizer, about } = req.body
+    const { categoryId, title, date, startHour, endHour, city, organizer, about, artist, location } = req.body
     
     // function query find by id with relational table
     const item = await Item.findOne({
@@ -946,6 +948,8 @@ const editItem = async (req, res) => {
       item.organizer = organizer
       item.description = about
       item.categoryId = categoryId
+      item.artist = artist
+      item.location = location
 
       // function save
       await item.save()
@@ -969,6 +973,8 @@ const editItem = async (req, res) => {
       item.organizer = organizer
       item.description = about
       item.categoryId = categoryId
+      item.artist = artist
+      item.location = location
 
       // function save
       await item.save()

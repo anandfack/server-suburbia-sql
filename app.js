@@ -5,7 +5,7 @@ var cookieParser = require("cookie-parser")
 var logger = require("morgan")
 
 // seqeuelize
-const { Sequelize } = require("sequelize")
+// const { Sequelize } = require("sequelize")
 
 // method-override, flash, session
 const methodOverride = require("method-override")

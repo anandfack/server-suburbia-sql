@@ -19,6 +19,20 @@ const Item = sequelize.define("Item", {
       max: 150,
     },
   },
+  artist: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      max: 150
+    }
+  },
+  location: {
+    type : DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      max: 150
+    }
+  },
   city: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -228,11 +242,11 @@ module.exports = {
 }
 
 // Sinkronisasi model dengan database
-// sequelize
-// .sync()
-// .then(() => {
-//   console.log("Tabel berhasil dibuat")
-// })
-// .catch((error) => {
-//   console.error("Tidak dapat membuat tabel:", error)
-// })
+sequelize
+.sync()
+.then(() => {
+  console.log("Tabel berhasil dibuat")
+})
+.catch((error) => {
+  console.error("Tidak dapat membuat tabel:", error)
+})

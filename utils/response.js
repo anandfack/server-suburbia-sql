@@ -1,8 +1,8 @@
-const response = (statusCode, data, message, res) => {
+const response = (statusCode, data, message, status, res) => {
     res.json(statusCode, [
         {
             payload: {
-                status: statusCode,
+                status: status,
                 data,
                 message,
             },

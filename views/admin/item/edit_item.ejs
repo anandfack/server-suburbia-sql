@@ -8,7 +8,7 @@
     <div class="card shadow mb-4 mt-2">
       <div class="card-body">
         <div class="row">
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
             <label for="name">Title</label>
             <input
               type="text"
@@ -19,10 +19,21 @@
               required
             />
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
+            <label for="name">Artist</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter artist"
+              name="artist"
+              value="<%= item.artist %>"
+              required
+            />
+          </div>
+          <div class="form-group col-md-4">
             <label for="name">Category</label>
             <select id="select-state" name="categoryId">
-              <option value="<%= item.Category.id%>">--- <%= item.Category.name%> ---</option>
+              <option value="<%= item.Category.id%>"> <%= item.Category.name%> </option>
               <% for(let i = 0; i < category.length; i++){ %>
                 <option value="<%= category[i].id %>"><%= i + 1 %>. <%= category[i].name %></option>
               <% } %>
@@ -30,7 +41,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
             <label for="name">City</label>
             <input
               type="text"
@@ -40,8 +51,19 @@
               value="<%= item.city %>"
               required
             />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="name">Location</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter location"
+              name="location"
+              value="<%= item.location %>"
+              required
+            />
           </div>  
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
               <label for="name">Organized by</label>
               <input
                 type="text"

@@ -18,7 +18,9 @@
             <tr>
               <th>No</th>
               <th>Title</th>
+              <th>Artist</th>
               <th>Category</th>
+              <th>Location</th>
               <th>City</th>
               <th>Country</th>
               <th>Date and Time</th>
@@ -31,7 +33,9 @@
               <tr>
                 <td><%= i + 1 %></td>
                 <td><%= item[i].title %></td>
+                <td><%= item[i].artist %></td>
                 <td><%= item[i].Category.name %></td>
+                <td><%= item[i].location %></td>
                 <td><%= item[i].city %></td>
                 <td><%= item[i].country %></td>
                 <td><%= item[i].date %>, <%= item[i].startHour %> - <%= item[i].endHour %></td>
