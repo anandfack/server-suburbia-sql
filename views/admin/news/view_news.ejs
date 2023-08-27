@@ -57,20 +57,49 @@
     $("#dataTable").on("click", ".button-update", function () {
       let id = $(this).data("id")
       let title = $(this).data("title")
-      let author = $(this).data("author")
       let artist = $(this).data("artist")
       let date = $(this).data("date")
+      let type = $(this).data("type")
       let description = $(this).data("description")
       $("#edit-modal").modal("show")
       $(".id").val(id)
-      $(".author").val(author)
       $(".artist").val(artist)
       $(".date").val(date)
+      $(".type").val(type)
       $(".description").val(description)
       $(".title").val(title)
+      CKEDITOR.replace("about_news")
     })
     CKEDITOR.replace("about")
-    CKEDITOR.replace("about_edit")
+    new TomSelect("#select-state",{
+        create: false,
+        sortField: {
+            field: "text",
+            direction: "asc"
+        }
+    });
+    new TomSelect("#select-state-edit",{
+        create: false,
+        sortField: {
+            field: "text",
+            direction: "asc"
+        }
+    });
+    new TomSelect("#select-state-add-type",{
+        create: false,
+        sortField: {
+            field: "text",
+            direction: "asc"
+        }
+    });
+    new TomSelect("#select-state-edit-type",{
+        create: false,
+        sortField: {
+            field: "text",
+            direction: "asc"
+        }
+    });
+
   </script>
   
   

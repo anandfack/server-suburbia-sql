@@ -1,0 +1,36 @@
+<div
+  class="tab-pane fade"
+  id="add-item"
+  role="tabpanel"
+  aria-labelledby="profile-tab"
+>
+  <form action="/admin/gallery" method="POST" enctype="multipart/form-data">
+    <div class="card shadow mb-4 mt-2">
+      <div class="card-body">
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="name">Type</label>
+            <select id="select-state-type" name="type">
+              <option value="">--- select optional type ---</option>
+                <option value="photo">1. Photo</option>
+                <option value="artwork">2. Artwork</option>
+                <option disabled value="video">3. Video</option>
+            </select>
+          </div>  
+          <div class="form-group col-md-6">
+            <label for="name">Artist</label>
+            <select id="select-state" name="artistId">
+              <option value="">--- select optional artist ---</option>
+              <% for(let i = 0; i < artist.length; i++){ %>
+                <option value="<%= artist[i].id %>"><%= i + 1 %>. <%= artist[i].firstName %> <%= artist[i].lastName %></option>
+              <% } %>
+            </select>
+          </div>
+        </div>
+          <div class="form-group col-md-4">
+            <label for="name">Image</label>
+            <input type="file" class="form-control" name="image" multiple required>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>

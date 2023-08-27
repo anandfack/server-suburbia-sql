@@ -33,16 +33,27 @@
             />
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">Author</label>
-            <input
-              type="text"
-              class="form-control"
-              id="name"
-              placeholder="Enter author"
-              name="author"
-              required
-            />
+            <label for="name">Author</label>
+            <select id="select-state" name="authorId">
+              <option value="">--- select optional author ---</option>
+              <% for(let i = 0; i < author.length; i++){ %>
+              <option value="<%= author[i].id %>">
+                <%= i + 1 %>. <%= author[i].firstName %> <%= author[i].lastName
+                %>
+              </option>
+              <% } %>
+            </select>
           </div>
+
+          <div class="form-group">
+            <label for="name">Type</label>
+            <select id="select-state-add-type" name="type">
+              <option value="">--- select optional type ---</option>
+                <option value="news">1. News</option>
+                <option value="press">2. Press Release</option>
+            </select>
+          </div>  
+
           <div class="form-group">
             <label for="exampleInputEmail1">Artist</label>
             <input

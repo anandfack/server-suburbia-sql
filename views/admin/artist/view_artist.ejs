@@ -22,10 +22,10 @@
           <div class="container-fluid">
             <%- include("../../partials/message.ejs") %>
             <!-- Page Heading -->
-            <h1 class="h3 mb-4 text-gray-800">Rooster</h1>
+            <h1 class="h3 mb-4 text-gray-800">Artist</h1>
 
             <!-- TABLE -->
-                <%- include("table_rooster.ejs") %>
+                <%- include("table_artist.ejs") %>
             <!-- END OF TABLE -->
 
           </div>
@@ -56,19 +56,16 @@
   <script>
     $("#dataTable").on("click", ".button-update", function () {
       let id = $(this).data("id")
-      let nameBand = $(this).data("nameband")
-      let city = $(this).data("city")
-      let genre = $(this).data("genre")
-      let instagram = $(this).data("instagram")
-      let spotify = $(this).data("spotify")
+      let firstName = $(this).data("firstname")
+      let lastName = $(this).data("lastname")
+      let profilePhoto = $(this).data("profilephoto")
       $("#edit-modal").modal("show")
       $(".id").val(id)
-      $(".city").val(city)
-      $(".genre").val(genre)
-      $(".instagram").val(instagram)
-      $(".spotify").val(spotify)
-      $(".nameBand").val(nameBand)
+      $(".firstName").val(firstName)
+      $(".lastName").val(lastName)
+      $(".profilePhoto").val(profilePhoto)
     })
   </script>
+  
   
 </html>

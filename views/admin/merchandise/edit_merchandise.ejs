@@ -66,9 +66,18 @@
             />
           </div>
         </div>
-        <div class="form-group">
-            <label for="name">Image</label>
-            <input type="file" class="form-control" name="image" multiple>
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label for="name">Status</label>
+            <select id="select-state" name="isSold">
+              <option value="true" <%= (merchandise.isSold === true) ? 'selected' : '' %>>Sold</option>
+              <option value="false" <%= (merchandise.isSold === false) ? 'selected' : '' %>>Available</option>
+            </select>
+          </div>
+          <div class="form-group col-md-9">
+              <label for="name">Image</label>
+              <input type="file" class="form-control" name="image" multiple>
+          </div>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
   </form>

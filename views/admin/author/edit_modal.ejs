@@ -6,10 +6,10 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Rooster</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Update Author</h5>
         <button
           type="button"
           class="close"
@@ -20,54 +20,32 @@
         </button>
       </div>
       <form
-        action="/admin/rooster?_method=PUT"
+        action="/admin/author?_method=PUT"
         method="POST"
         enctype="multipart/form-data"
       >
         <div class="modal-body">
           <div class="form-group">
-            <label for="exampleInputEmail1">Name Band</label>
+            <label for="exampleInputEmail1">FirstName</label>
             <input
               type="text"
-              class="form-control nameBand"
-              name="nameBand"
+              class="form-control firstName"
+              name="firstName"
               required
             />
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">City</label>
-            <input type="text" class="form-control city" name="city" required />
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Genre</label>
+            <label for="exampleInputEmail1">Last Name</label>
             <input
               type="text"
-              class="form-control genre"
-              name="genre"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Spotify</label>
-            <input
-              type="text"
-              class="form-control spotify"
-              name="spotify"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Instagram</label>
-            <input
-              type="text"
-              class="form-control instagram"
-              name="instagram"
+              class="form-control lastName"
+              name="lastName"
               required
             />
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Image</label>
-            <input type="file" class="form-control imageUrl" name="image" />
+            <input type="file" class="form-control profilePhoto" name="image" />
             <span>Pilih gambar untuk update image</span>
           </div>
         </div>

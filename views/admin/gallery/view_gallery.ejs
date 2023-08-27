@@ -18,7 +18,7 @@
           <!-- Page Heading -->
           <%- include('../../partials/message.ejs') %>
 
-          <h1 class="h3 mb-4 text-gray-800">Merchandise</h1>
+          <h1 class="h3 mb-4 text-gray-800">Gallery</h1>
           <!-- end page heading -->
 
           <% if(action == 'view'){ %>
@@ -28,13 +28,13 @@
                 class="nav-link active"
                 id="home-tab"
                 data-toggle="tab"
-                href="#show-merchandise"
+                href="#show-item"
                 type="button"
                 role="tab"
                 aria-controls="home"
                 aria-selected="true"
               >
-                Show Merchandise
+                Show Gallery
               </button>
             </li>
             <li class="nav-item" role="presentation">
@@ -42,20 +42,19 @@
                 class="nav-link"
                 id="profile"
                 data-toggle="tab"
-                href="#add-merchandise"
+                href="#add-item"
                 type="button"
                 role="tab"
                 aria-controls="profile"
                 aria-selected="false"
               >
-                Add Merchandise
+                Add Gallery
               </button>
             </li>
           </ul>
           <div class="tab-content" id="myTabContent">
-            <%- include('show_table_merchandise.ejs') %>
-            <!--asdasd  -->
-            <%- include('add_merchandise.ejs') %>
+            <%- include('show_table_gallery.ejs') %> <%-
+            include('add_gallery.ejs') %>
           </div>
           <%} else if(action == "show image") {%>
           <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -64,18 +63,18 @@
                 class="nav-link active"
                 id="home-tab"
                 data-toggle="tab"
-                href="#show-image-merchandise"
+                href="#show-image"
                 type="button"
                 role="tab"
                 aria-controls="home"
                 aria-selected="true"
               >
-                Show Image Merchandise
+                Show Image
               </button>
             </li>
           </ul>
           <div class="tab-content" id="myTabContent">
-            <%- include('show_image_merchandise.ejs') %>
+            <%- include('show_image_gallery.ejs') %>
           </div>
           <%} else { %>
           <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -84,18 +83,18 @@
                 class="nav-link active"
                 id="home-tab"
                 data-toggle="tab"
-                href="#edit-merchandise"
+                href="#edit-item"
                 type="button"
                 role="tab"
                 aria-controls="home"
                 aria-selected="true"
               >
-                Edit Merchandise
+                Edit Gallery
               </button>
             </li>
           </ul>
           <div class="tab-content" id="myTabContent">
-            <%- include('edit_merchandise.ejs') %>
+            <%- include('edit_gallery.ejs') %>
           </div>
 
           <%}%>
@@ -129,7 +128,7 @@
       direction: "asc",
     },
   });
-  new TomSelect("#select-state-is-default", {
+  new TomSelect("#select-state-type", {
     create: false,
     sortField: {
       field: "text",

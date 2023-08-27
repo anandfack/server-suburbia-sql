@@ -22,6 +22,7 @@
               <th>Price</th>
               <th>Shopee</th>
               <th>Tokopedia</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -42,6 +43,12 @@
                     <i class="fa fa-eye"></i>
                   </a>
                 </td>  
+                <td><% if(merchandise[i].isSold === false){ %>
+                  <span class="badge badge-success">Available</span>
+                  <%} else {%>
+                    <span class="badge badge-danger">Sold</span>
+                    <%}%>
+                  </td>
                 <td>
                   <form action="/admin/merchandise/<%= merchandise[i].id %>/delete?_method=DELETE" method="POST">
                     <a href="/admin/merchandise/show-image/<%= merchandise[i].id %>" type="button" class="btn btn-info btn-circle btn-sm"><i class="fas fa-image"></i></a>

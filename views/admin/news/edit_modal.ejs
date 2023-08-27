@@ -35,14 +35,30 @@
             />
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">Author</label>
-            <input
-              type="text"
-              class="form-control author"
-              name="author"
-              required
-            />
+            <label for="name">Author</label>
+            <select id="select-state-edit" name="authorId">
+              <% for(let i = 0; i < author.length; i++){ %>
+              <option value="<%= author[i].id %>">
+                <%= i + 1 %>. <%= author[i].firstName %> <%= author[i].lastName
+                %>
+              </option>
+              <% } %>
+            </select>
           </div>
+
+          <div class="form-group">
+            <label for="name">Type</label>
+            <select id="select-state-edit-type" name="type">
+              <option value="news">News</option>
+              <option value="press">Press Release</option>
+            </select>
+          </div>
+
+          <!--<div class="form-group">
+            <label for="exampleInputEmail1">Type</label>
+            <input type="text" class="form-control type" name="type" required />
+          </div>-->   
+
           <div class="form-group">
             <label for="exampleInputEmail1">Artist</label>
             <input
@@ -54,7 +70,7 @@
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Date</label>
-            <input type="text" class="form-control date" name="date" required />
+            <input type="date" class="form-control date" name="date" required />
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Image</label>
@@ -64,7 +80,7 @@
           <div class="form-group">
             <label for="name">Description</label>
             <textarea
-              name="about_edit"
+              name="about_news"
               class="form-control description"
             ></textarea>
           </div>

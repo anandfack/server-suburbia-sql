@@ -23,6 +23,7 @@
           <tr>
             <th>No</th>
             <th>Title</th>
+            <th>Type</th>
             <th>author</th>
             <th>Artist</th>
             <th>date</th>
@@ -35,15 +36,16 @@
             <tr>
               <td><%= i + 1 %></td>
               <td><%= news[i].title %></td>
-              <td><%= news[i].author %></td>
+              <td><%= news[i].type %></td>
+              <td><%= news[i].Author.firstName %> <%= news[i].Author.lastName %></td>
               <td><%= news[i].artist %></td>
               <td><%= news[i].date %></td>
               <td>
-                <img src="http://localhost:3000/<%= news[i].imageUrl %>" alt="imageUrl" width="70px">
+                <img src="http://localhost:4000/<%= news[i].imageUrl %>" alt="imageUrl" width="70px">
               </td>
               <td>
                 <form action="/admin/news/<%= news[i].id %>?_method=DELETE" method="POST">
-                  <a href="javascript:void()" type="button" class="btn btn-warning btn-circle btn-sm button-update" data-id="<%= news[i].id %>" data-title="<%= news[i].title %>" data-author="<%= news[i].author %>"data-artist="<%= news[i].artist %>"data-date="<%= news[i].date %>"data-description="<%= news[i].description %>"><i class="fas fa-edit"></i></a>
+                  <a href="javascript:void()" type="button" class="btn btn-warning btn-circle btn-sm button-update" data-id="<%= news[i].id %>" data-title="<%= news[i].title %>" data-author="<%= news[i].author %>"data-artist="<%= news[i].artist %>"data-date="<%= news[i].date %>" data-author="<%= news[i].author %>" data-type="<%= news[i].type %>" data-description="<%= news[i].description %>"><i class="fas fa-edit"></i></a>
                   <button type="submit" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>
                 </form>
                   </td>

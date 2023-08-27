@@ -95,6 +95,13 @@ const Rooster = sequelize.define("Rooster", {
       max: 150,
     },
   },
+  genre: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      max: 150,
+    }
+  },
   country: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -131,13 +138,6 @@ const News = sequelize.define("News", {
       max: 150,
     },
   },
-  author: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      max: 150,
-    },
-  },
   artist: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -159,6 +159,13 @@ const News = sequelize.define("News", {
     validate: {
       max: 150,
     },
+  },
+  type: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      max: 150
+    }
   },
 })
 
@@ -195,6 +202,11 @@ const Merchandise = sequelize.define("Merchandise", {
       max: 150,
     },
   },
+  isSold: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  }
 })
 
 const imageMerchandise = sequelize.define("imageMerchandise", {
@@ -205,6 +217,79 @@ const imageMerchandise = sequelize.define("imageMerchandise", {
       max: 150,
     },
   },
+  isDefault: {
+    type: DataTypes.BOOLEAN,
+    allowNull:false,
+    defaultValue: false
+  }
+})
+
+const Gallery = sequelize.define("Gallery", {
+  type: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      max: 150
+    }
+  }
+})
+
+const imageGallery = sequelize.define("imageGallery", {
+  imageUrl: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      max: 150
+    }
+  }
+})
+
+const Artist = sequelize.define("Artist", {
+  firstName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      max: 150
+    }
+  },
+  lastName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      max: 150
+    }
+  },
+  profilePhoto:{
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      max: 150
+    }
+  }
+})
+
+const Author = sequelize.define("Author", {
+  firstName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      max: 150
+    }
+  },
+  lastName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      max: 150
+    }
+  },
+  profilePhoto:{
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      max: 150
+    }
+  }
 })
 
 Item.hasMany(Image, {
@@ -231,6 +316,30 @@ imageMerchandise.belongsTo(Merchandise, {
   foreignKey: "merchandiseId",
 })
 
+Gallery.hasMany(imageGallery, {
+  foreignKey: "galleryId"
+})
+
+imageGallery.belongsTo(Gallery, {
+  foreignKey: "galleryId"
+})
+
+Artist.hasMany(Gallery, {
+  foreignKey: "artistId"
+})
+
+Gallery.belongsTo(Artist, {
+  foreignKey: "artistId"
+})
+
+Author.hasMany(News, {
+  foreignKey: "authorId"
+})
+
+News.belongsTo(Author, {
+  foreignKey: "authorId"
+})
+
 module.exports = {
   Category,
   Item,
@@ -239,14 +348,19 @@ module.exports = {
   News,
   Merchandise,
   imageMerchandise,
+  Gallery,
+  imageGallery,
+  Artist,
+  Author,
 }
 
 // Sinkronisasi model dengan database
-sequelize
-.sync()
-.then(() => {
-  console.log("Tabel berhasil dibuat")
-})
-.catch((error) => {
-  console.error("Tidak dapat membuat tabel:", error)
-})
+
+// sequelize
+// .sync()
+// .then(() => {
+//   console.log("Tabel berhasil dibuat")
+// })
+// .catch((error) => {
+//   console.error("Tidak dapat membuat tabel:", error)
+// })

@@ -6,12 +6,12 @@
   aria-labelledby="home-tab"
 >
   <div class="row">
-    <%for(let x = 0; x < item.Images.length; x++) { %>
+    <%for(let x = 0; x < gallery.imageGalleries.length; x++) { %>
     <div class="col md-4">
       <div class="card shadow mb-4 mt-2">
         <div class="card-body">
           <img
-            src="http://127.0.0.1:4000/<%= item.Images[x].imageUrl%>"
+            src="http://127.0.0.1:4000/<%= gallery.imageGalleries[x].imageUrl%>"
             alt="image"
             style="width: 100%; display: block"
           />
@@ -20,5 +20,5 @@
     </div>
     <% } %>
   </div>
-  <a href="/admin/item" class="btn btn-warning">back</a>
+  <a href="/admin/gallery" class="btn btn-warning">back</a>
 </div>

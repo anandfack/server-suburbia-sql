@@ -6,15 +6,24 @@
   aria-labelledby="home-tab"
 >
   <div class="row">
-    <%for(let x = 0; x < merchandise.imageMerchandises.length; x++) { %>
+    <% for (let i = 0; i < merchandise.imageMerchandises.length; i++) { %>
     <div class="col md-4">
       <div class="card shadow mb-4 mt-2">
         <div class="card-body">
           <img
-            src="http://127.0.0.1:3000/<%= merchandise.imageMerchandises[x].imageUrl%>"
+            src="http://127.0.0.1:4000/<%= merchandise.imageMerchandises[i].imageUrl %>"
             alt="image"
             style="width: 100%; display: block"
           />
+          <% if (merchandise.imageMerchandises[i].isDefault === true) { %>
+          <span class="badge badge-pill badge-success mt-4" style="float: right"
+            >Selected Pictures</span
+          >
+          <% } else { %>
+          <span class="badge badge-pill badge-info mt-4" style="float: right"
+            >Others picture</span
+          >
+          <% } %>
         </div>
       </div>
     </div>

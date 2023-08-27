@@ -25,11 +25,15 @@ router.delete("/rooster/:id", adminController.deleteRooster)
 
 // endpoint merchandise
 router.get("/merchandise", adminController.viewMerchandise)
-router.post("/merchandise", uploadMultiple, adminController.addMerchandise)
+router.post("/merchandise", upload, adminController.addMerchandise)
 router.get("/merchandise/show-image/:id", adminController.showImageMerchandise)
 router.get("/merchandise/:id", adminController.showEditMerchandise)
 router.put("/merchandise/:id", uploadMultiple, adminController.editMerchandise)
 router.delete("/merchandise/:id/delete", adminController.deleteMerchandise)
+
+// endpoint imageMerchandise
+// router.get("/image-merchandise", adminController.viewAddImageMerchandise)
+router.post("/image-merchandise", upload, adminController.addImageMerchandise)
 
 // endpoint news
 router.get("/news", adminController.viewNews)
@@ -44,5 +48,25 @@ router.get("/item/show-image/:id", adminController.showImageItem)
 router.get("/item/:id", adminController.showEditItem)
 router.put("/item/:id", uploadMultiple, adminController.editItem)
 router.delete("/item/:id/delete", adminController.deleteItem)
+
+// endpoint artist
+router.get("/artist", adminController.viewArtist)
+router.post("/artist", upload, adminController.addArtist)
+router.put("/artist", upload, adminController.editArtist)
+router.delete("/artist/:id", adminController.deleteArtist)
+
+// endpoint gallery
+router.get("/gallery", adminController.viewGallery)
+router.post("/gallery", uploadMultiple, adminController.addGallery)
+router.get("/gallery/show-image/:id", adminController.showImageGallery)
+router.get("/gallery/:id", adminController.showEditGallery)
+router.put("/gallery/:id", uploadMultiple, adminController.editGallery)
+router.delete("/gallery/:id/delete", adminController.deleteGallery)
+
+// endpoint author
+router.get("/author", adminController.viewAuthor)
+router.post("/author", upload, adminController.addAuthor)
+router.put("/author", upload, adminController.editAuthor)
+router.delete("/author/:id", adminController.deleteAuthor)
 
 module.exports = router
