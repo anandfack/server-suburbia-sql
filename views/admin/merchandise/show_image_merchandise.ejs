@@ -1,33 +1,60 @@
 <!-- DataTales Example -->
 <div
   class="tab-pane fade show active"
-  id="show-image-merchandise"
+  id="show-image"
   role="tabpanel"
   aria-labelledby="home-tab"
 >
-  <div class="row">
-    <% for (let i = 0; i < merchandise.imageMerchandises.length; i++) { %>
-    <div class="col md-4">
-      <div class="card shadow mb-4 mt-2">
-        <div class="card-body">
-          <img
-            src="http://127.0.0.1:4000/<%= merchandise.imageMerchandises[i].imageUrl %>"
-            alt="image"
-            style="width: 100%; display: block"
-          />
-          <% if (merchandise.imageMerchandises[i].isDefault === true) { %>
-          <span class="badge badge-pill badge-success mt-4" style="float: right"
-            >Selected Pictures</span
-          >
-          <% } else { %>
-          <span class="badge badge-pill badge-info mt-4" style="float: right"
-            >Others picture</span
-          >
-          <% } %>
-        </div>
+  <div class="card shadow mb-4 mt-2">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped" id="dataTable">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (let i = 0; i < merchandise.imageMerchandises.length; i++) {
+            %>
+            <tr>
+              <td>
+                <img
+                  src="http://127.0.0.1:4000/<%= merchandise.imageMerchandises[i].imageUrl %>"
+                  alt="image"
+                  style="width: 100px; height: 100px; object-fit: cover"
+                />
+              </td>
+              <td>
+                <% if (merchandise.imageMerchandises[i].isDefault === true) { %>
+                <span
+                  class="badge badge-pill badge-success mt-4"
+                  style="float: right"
+                  >Selected Pictures</span
+                >
+                <% } %>
+              </td>
+              <td>
+                <form
+                  action="/admin/image-merchandise/<%= merchandise.imageMerchandises[i].id %>?_method=DELETE"
+                  method="POST"
+                >
+                  <button
+                    type="submit"
+                    class="btn btn-danger btn-circle btn-sm"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
       </div>
     </div>
-    <% } %>
   </div>
-  <a href="/admin/merchandise" class="btn btn-warning">back</a>
+  <a href="/admin/item" class="btn btn-warning">Back</a>
 </div>

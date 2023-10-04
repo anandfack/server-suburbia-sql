@@ -41,7 +41,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-3">
             <label for="name">City</label>
             <input
               type="text"
@@ -52,7 +52,7 @@
               required
             />
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-3">
             <label for="name">Location</label>
             <input
               type="text"
@@ -63,7 +63,18 @@
               required
             />
           </div>  
-            <div class="form-group col-md-4">
+          <div class="form-group col-md-3">
+            <label for="name">Ticket</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter ticket"
+              name="ticket"
+              value="<%= item.ticket %>"
+              required
+            />
+          </div>  
+            <div class="form-group col-md-3">
               <label for="name">Organized by</label>
               <input
                 type="text"
@@ -114,10 +125,6 @@
           <label for="name">Description</label>
           <textarea name="about" class="form-control"><%= item.description %></textarea>
       </div>
-        <div class="form-group col-md-4">
-            <label for="name">Image</label>
-            <input type="file" class="form-control" name="image" multiple>
-        </div>
         <button type="submit" class="btn btn-primary">Save</button>
   </form>
 </div>

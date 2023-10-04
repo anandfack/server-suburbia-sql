@@ -1,0 +1,24 @@
+- Kurang menambahkan deskripsi pada tabel merchandise ✅
+- kurang menambahkan deskripsi pada tabel roaster ✅
+- kurang menambahkan deskripsi pada crud merchandise ✅
+- kurang menambahkan deskripsi pada crud roaster ✅
+- kurang menambahkan ticket pada tabel item ✅
+- kurang menambahkan ticket pada crud item ✅
+- membuat status untuk recentShow (jika aktif maka akan muncul link pembelian tiket, kalo tidak aktif maka hilang) ✅
+- membuat api untuk allRecentShow ✅
+- membuat api untuk detailRecentShow ✅
+- membuat api jaga jaga untuk detail roaster page jika arip ingin ditambahkan detail page ✅
+- membuat api jaga jaga untuk detail author ✅
+- menambahkan isHeader di image item ✅
+- merubah edit dari merchandise ✅
+- merubah edit dari item ✅
+
+
+
+- kurang menambahkan alert menggunakan sweet alert ❌
+- kurang menambahkan sign up dan login ❌
+- form update news authornya tidak autofill value sebelumnya ❌
+- form update news typenya tidak autofill value sebelumnya ❌
+- value size masih belum tau bakalan seperti apa. apakah membuat tabel baru atau gimana saya juga belum tau ❌
+- membuat apiKey agar tiap hit request harus melalui apiKey ❌
+- kayaknya aku nambah action mata untuk melihat isi deskripsi ❌

@@ -61,14 +61,25 @@
       let genre = $(this).data("genre")
       let instagram = $(this).data("instagram")
       let spotify = $(this).data("spotify")
+      let description = $(this).data("description")
       $("#edit-modal").modal("show")
       $(".id").val(id)
       $(".city").val(city)
       $(".genre").val(genre)
       $(".instagram").val(instagram)
       $(".spotify").val(spotify)
+      $(".description").val(description)
       $(".nameBand").val(nameBand)
+      CKEDITOR.replace("about_rooster")
     })
+    CKEDITOR.replace("about")
+    new TomSelect("#select-state",{
+        create: false,
+        sortField: {
+            field: "text",
+            direction: "asc"
+        }
+    });
   </script>
   
 </html>

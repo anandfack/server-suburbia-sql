@@ -119,13 +119,34 @@
 </body>
 <%- include('../../partials/script.ejs') %>
 <script>
-  CKEDITOR.replace("about")
+  CKEDITOR.replace("about");
 
-  new TomSelect("#select-state",{
-        create: false,
-        sortField: {
-            field: "text",
-            direction: "asc"
-        }
-    });
-    </script>
+  new TomSelect("#select-state", {
+    create: false,
+    sortField: {
+      field: "text",
+      direction: "asc",
+    },
+  });
+  new TomSelect("#select-state-item", {
+    create: false,
+    sortField: {
+      field: "text",
+      direction: "asc",
+    },
+  });
+  new TomSelect("#select-state-artist", {
+    create: false,
+    sortField: {
+      field: "text",
+      direction: "asc",
+    },
+  });
+  new TomSelect("#select-state-category", {
+    create: false,
+    sortField: {
+      field: "text",
+      direction: "asc",
+    },
+  });
+</script>

@@ -122,6 +122,8 @@
 <%- include('../../partials/script.ejs') %>
 
 <script>
+  CKEDITOR.replace("about");
+
   new TomSelect("#select-state", {
     create: false,
     sortField: {

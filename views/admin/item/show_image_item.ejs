@@ -5,20 +5,55 @@
   role="tabpanel"
   aria-labelledby="home-tab"
 >
-  <div class="row">
-    <%for(let x = 0; x < item.Images.length; x++) { %>
-    <div class="col md-4">
-      <div class="card shadow mb-4 mt-2">
-        <div class="card-body">
-          <img
-            src="http://127.0.0.1:4000/<%= item.Images[x].imageUrl%>"
-            alt="image"
-            style="width: 100%; display: block"
-          />
-        </div>
+  <div class="card shadow mb-4 mt-2">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped" id="dataTable">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Status</th>
+              <th>Category</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (let x = 0; x < item.Images.length; x++) { %>
+            <tr>
+              <td>
+                <img
+                  src="http://127.0.0.1:4000/<%= item.Images[x].imageUrl %>"
+                  alt="image"
+                  style="width: 100px; height: 100px; object-fit: cover"
+                />
+              </td>
+              <td>
+                <% if (item.Images[x].isDefault === true) { %>
+                <span class="badge badge-success">Default</span>
+                <% } %> <% if (item.Images[x].isHeader === true) { %>
+                <span class="badge badge-danger">Header</span>
+                <% } %> 
+              </td>
+              <td style="text-transform: capitalize;"><%= item.Images[x].category %></td>
+              <td>
+                <form
+                  action="/admin/image/<%= item.Images[x].id %>?_method=DELETE"
+                  method="POST"
+                >
+                  <button
+                    type="submit"
+                    class="btn btn-danger btn-circle btn-sm"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
       </div>
     </div>
-    <% } %>
   </div>
-  <a href="/admin/item" class="btn btn-warning">back</a>
+  <a href="/admin/item" class="btn btn-warning">Back</a>
 </div>

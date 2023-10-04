@@ -6,14 +6,14 @@ const {
   News,
   Item,
   Image,
-  Gallery,
-  imageGallery,
   Artist,
   Author,
 } = require("../models/model");
 
 const path = require("path");
 const fs = require("fs-extra");
+
+const slugify = require("slugify");
 
 /* Dashboard */
 
@@ -56,12 +56,18 @@ const addCategory = async (req, res) => {
     // get data from body
     const { name } = req.body;
 
+    // generate slug from the name
+    const slug = slugify(name, {
+      lower: true, // Convert slug to lowercase
+      remove: /[*+~.()'"!:@]/g, // Remove special characters
+    });
+
     // save data
     await Category.create({
       name,
+      slug,
     });
 
-    // notification and redirect
     req.flash("alertMessage", "Success add category");
     req.flash("alertStatus", "success");
     res.redirect("/admin/category");
@@ -84,9 +90,15 @@ const editCategory = async (req, res) => {
       attributes: ["id", "name"],
     });
 
+    const slug = slugify(name, {
+      lower: true, // Convert slug to lowercase
+      remove: /[*+~.()'"!:@]/g, // Remove special characters
+    });
+
     // function update data
     await category.update({
       name: name,
+      slug: slug,
     });
 
     // notification
@@ -158,7 +170,12 @@ const viewRooster = async (req, res) => {
 const addRooster = async (req, res) => {
   try {
     // get data from body
-    const { nameBand, city, genre, instagram, spotify } = req.body;
+    const { nameBand, city, genre, instagram, spotify, about } = req.body;
+
+    const slug = slugify(nameBand, {
+      lower: true, // Convert slug to lowercase
+      remove: /[*+~.()'"!:@]/g, // Remove special characters
+    });
 
     // function save
     await Rooster.create({
@@ -167,6 +184,8 @@ const addRooster = async (req, res) => {
       genre,
       instagram,
       spotify,
+      slug,
+      description: about,
       imageUrl: `images/${req.file.filename}`,
     });
 
@@ -187,7 +206,13 @@ const addRooster = async (req, res) => {
 const editRooster = async (req, res) => {
   try {
     // get data from body
-    const { id, nameBand, city, genre, instagram, spotify } = req.body;
+    const { id, nameBand, city, genre, instagram, spotify, about_rooster } =
+      req.body;
+
+    const slug = slugify(nameBand, {
+      lower: true, // Convert slug to lowercase
+      remove: /[*+~.()'"!:@]/g, // Remove special characters
+    });
 
     // function find rooster by id
     const rooster = await Rooster.findOne({
@@ -201,6 +226,8 @@ const editRooster = async (req, res) => {
         "genre",
         "instagram",
         "spotify",
+        "slug",
+        "description",
         "imageUrl",
       ],
     });
@@ -214,6 +241,8 @@ const editRooster = async (req, res) => {
         genre: genre,
         instagram: instagram,
         spotify: spotify,
+        slug: slug,
+        description: about_rooster,
       });
 
       // notification
@@ -234,6 +263,8 @@ const editRooster = async (req, res) => {
       rooster.genre = genre;
       rooster.instagram = instagram;
       rooster.spotify = spotify;
+      rooster.slug = slug;
+      rooster.description = about_rooster;
 
       // declare image from body
       rooster.imageUrl = `images/${req.file.filename}`;
@@ -342,46 +373,15 @@ const viewMerchandise = async (req, res) => {
   }
 };
 
-const showImageMerchandise = async (req, res) => {
-  try {
-    // get id from params
-    const { id } = req.params;
-
-    // function query find by id with relation table
-    const merchandise = await Merchandise.findOne({
-      where: { id: id },
-      include: {
-        model: imageMerchandise,
-        attributes: ["id", "imageUrl", "isDefault"],
-      },
-    });
-
-    // notification
-    const alertMessage = req.flash("alertMessage");
-    const alertStatus = req.flash("alertStatus");
-    const alert = { message: alertMessage, status: alertStatus };
-
-    // render data to view page
-    res.render("admin/merchandise/view_merchandise", {
-      alert,
-      merchandise,
-      title: "Suburbia.east | Detail Merch",
-      action: "show image",
-    });
-  } catch (error) {
-    // catch error
-    req.flash("alertMessage", `${error.message}`);
-    req.flash("alertStatus", "danger");
-    res.redirect("/admin/merchandise");
-  }
-};
-
 const addMerchandise = async (req, res) => {
   try {
     // get data from body
-    const { title, price, size, shopeeUrl, tokopediaUrl } = req.body;
+    const { title, price, size, shopeeUrl, tokopediaUrl, about } = req.body;
 
-    // console.log (title)
+    const slug = slugify(title, {
+      lower: true, // Convert slug to lowercase
+      remove: /[*+~.()'"!:@]/g, // Remove special characters
+    });
 
     // function save
     await Merchandise.create({
@@ -390,6 +390,8 @@ const addMerchandise = async (req, res) => {
       size,
       shopeeUrl,
       tokopediaUrl,
+      slug,
+      description: about,
     });
     // notification
     req.flash("alertMessage", "Success add merchandise");
@@ -443,7 +445,13 @@ const editMerchandise = async (req, res) => {
     const { id } = req.params;
 
     // get data from body
-    const { title, price, size, shopeeUrl, tokopediaUrl, isSold } = req.body;
+    const { title, price, size, shopeeUrl, tokopediaUrl, isSold, about } =
+      req.body;
+
+    const slug = slugify(title, {
+      lower: true, // Convert slug to lowercase
+      remove: /[*+~.()'"!:@]/g, // Remove special characters
+    });
 
     // function query find by id with relational table
     const merchandise = await Merchandise.findOne({
@@ -477,7 +485,9 @@ const editMerchandise = async (req, res) => {
       merchandise.size = size;
       merchandise.shopeeUrl = shopeeUrl;
       merchandise.tokopediaUrl = tokopediaUrl;
+      merchandise.slug = slug;
       merchandise.isSold = isSold;
+      merchandise.description = about;
 
       // function save
       await merchandise.save();
@@ -497,7 +507,9 @@ const editMerchandise = async (req, res) => {
       merchandise.size = size;
       merchandise.shopeeUrl = shopeeUrl;
       merchandise.tokopediaUrl = tokopediaUrl;
+      merchandise.slug = slug;
       merchandise.isSold = isSold;
+      merchandise.description = about;
 
       // function save
       await merchandise.save();
@@ -558,6 +570,51 @@ const deleteMerchandise = async (req, res) => {
   }
 };
 
+const showImageMerchandise = async (req, res) => {
+  try {
+    // get id from params
+    const { id } = req.params;
+
+    // function query find by id with relation table
+    const merchandise = await Merchandise.findOne({
+      where: { id: id },
+      include: {
+        model: imageMerchandise,
+        attributes: ["id", "imageUrl", "isDefault"],
+        order: [[imageMerchandise, "isDefault", "ASC"]],
+      },
+    });
+
+    merchandise.imageMerchandises.sort((a, b) => {
+      if (a.isDefault === true && b.isDefault === false) {
+        return -1;
+      } else if (a.isDefault === false && b.isDefault === true) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
+    // notification
+    const alertMessage = req.flash("alertMessage");
+    const alertStatus = req.flash("alertStatus");
+    const alert = { message: alertMessage, status: alertStatus };
+
+    // render data to view page
+    res.render("admin/merchandise/view_merchandise", {
+      alert,
+      merchandise,
+      title: "Suburbia.east | Detail Merch",
+      action: "show image",
+    });
+  } catch (error) {
+    // catch error
+    req.flash("alertMessage", `${error.message}`);
+    req.flash("alertStatus", "danger");
+    res.redirect("/admin/merchandise");
+  }
+};
+
 const addImageMerchandise = async (req, res) => {
   try {
     const { isDefault, merchandiseId } = req.body;
@@ -574,12 +631,51 @@ const addImageMerchandise = async (req, res) => {
     req.flash("alertStatus", "success");
 
     // redirect
-    res.redirect("/admin/merchandise");
+    res.redirect(`/admin/merchandise/show-image/${merchandiseId}`);
   } catch (error) {
     // catch error
     req.flash("alertMessage", `${error.message}`);
     req.flash("alertStatus", "danger");
-    res.redirect("/admin/merchandise");
+    res.redirect(`/admin/merchandise/show-image/${merchandiseId}`);
+  }
+};
+
+const deleteImageMerchandise = async (req, res) => {
+  try {
+    // get data from params
+    const { id } = req.params;
+
+    // function query find by id
+    const getImageId = await imageMerchandise.findOne({
+      where: {
+        id: id,
+      },
+      attributes: ["id", "isDefault", "merchandiseId", "imageUrl"],
+    });
+
+    const merchandiseId = getImageId.merchandiseId;
+
+    // delete saved image
+    await fs.unlink(path.join(`public/${getImageId.imageUrl}`));
+
+    // delete value by id
+    await imageMerchandise.destroy({
+      where: {
+        id: id,
+      },
+    });
+
+    // notification
+    req.flash("alertMessage", "Success delete image");
+    req.flash("alertStatus", "success");
+
+    // redirect
+    res.redirect(`/admin/merchandise/show-image/${merchandiseId}`);
+  } catch (error) {
+    // catch error
+    req.flash("alertMessage", `${error.message}`);
+    req.flash("alertStatus", "danger");
+    res.redirect(`/admin/merchandise/show-image/${merchandiseId}`);
   }
 };
 
@@ -589,12 +685,20 @@ const viewNews = async (req, res) => {
   try {
     // function query find all news data
     const news = await News.findAll({
-      attributes: ["id", "title", "artist", "date", "description", "type", "imageUrl"],
+      attributes: [
+        "id",
+        "title",
+        "artist",
+        "date",
+        "description",
+        "type",
+        "imageUrl",
+      ],
       include: {
         model: Author,
-      }
+      },
     });
-    
+
     const author = await Author.findAll();
 
     // declare notification
@@ -622,12 +726,18 @@ const addNews = async (req, res) => {
     // get data from body
     const { title, artist, date, about, type, authorId } = req.body;
 
+    const slug = slugify(title, {
+      lower: true, // Convert slug to lowercase
+      remove: /[*+~.()'"!:@,]/g, // Remove special characters
+    });
+
     // function create
     await News.create({
       title,
       artist,
       date,
       type,
+      slug,
       authorId,
       description: about,
 
@@ -650,12 +760,18 @@ const addNews = async (req, res) => {
 };
 
 const editNews = async (req, res) => {
+  /* Try news */
+
   try {
     // get data from body
-    const { id, title, artist, date, type, about_news, authorId } =
-      req.body;
+    const { id, title, artist, date, type, about_news, authorId } = req.body;
 
-    // function query find by id
+    const slug = slugify(title, {
+      lower: true, // Convert slug to lowercase
+      remove: /[*+~.()'"!:@]/g, // Remove special characters
+    });
+
+    // function find rooster by id
     const news = await News.findOne({
       where: {
         id: id,
@@ -667,27 +783,21 @@ const editNews = async (req, res) => {
         "date",
         "type",
         "description",
-        "authorId",
+        "slug",
         "imageUrl",
-      ],
-      include: [
-        {
-          model: Author,
-          attributes: ["id", "firstName", "lastName", "profilePhoto"],
-        },
       ],
     });
 
-    // condition if edit without image
+    // condition if edit without file
     if (req.file == undefined) {
-      // function update
+      // function update without file
       await news.update({
         title: title,
         artist: artist,
         date: date,
         type: type,
+        slug: slug,
         description: about_news,
-        authorId: authorId,
       });
 
       // notification
@@ -697,21 +807,23 @@ const editNews = async (req, res) => {
       // redirect
       res.redirect("/admin/news");
 
-      // condition if edit with image
+      // condition if edit with file
     } else {
       // delete saved image
       await fs.unlink(path.join(`public/${news.imageUrl}`));
 
-      // declare all data include image
+      // declare value from body
       news.title = title;
       news.artist = artist;
       news.date = date;
       news.type = type;
-      news.description = about;
-      news.authorId = authorId;
+      news.slug = slug;
+      news.description = about_news;
+
+      // declare image from body
       news.imageUrl = `images/${req.file.filename}`;
 
-      // function save
+      // function update
       await news.save();
 
       // notification
@@ -793,6 +905,12 @@ const viewItem = async (req, res) => {
       ],
     });
 
+    const allImage = await Image.findAll();
+
+    const selectItem = await Item.findAll();
+
+    const selectArtist = await Artist.findAll();
+
     // function get category for select option
     const category = await Category.findAll();
 
@@ -808,6 +926,9 @@ const viewItem = async (req, res) => {
       title: "Suburbia.east | Item",
       action: "view",
       category,
+      allImage,
+      selectItem,
+      selectArtist,
     });
   } catch (error) {
     // catch error
@@ -831,77 +952,51 @@ const addItem = async (req, res) => {
       about,
       artist,
       location,
+      ticket,
     } = req.body;
 
-    // condition if create with images
-    if (req.files.length > 0) {
-      // function query find by id
-      const category = await Category.findOne({
-        where: { id: categoryId },
-      });
+    const slug = slugify(title, {
+      lower: true, // Convert slug to lowercase
+      remove: /[*+~.()'"!:@]/g, // Remove special characters
+    });
 
-      // fucntion create
-      const newItem = await Item.create({
-        categoryId: category.id,
-        title,
-        city,
-        date,
-        startHour,
-        endHour,
-        organizer,
-        description: about,
-        artist,
-        location,
-      });
-      await category.addItem(newItem);
+    // if (req.files.length > 0) {
+    // function query find by id
+    const category = await Category.findOne({
+      where: { id: categoryId },
+    });
 
-      // looping for files length
-      for (let i = 0; i < req.files.length; i++) {
-        // fucntion create images
-        const imageSave = await Image.create({
-          imageUrl: `images/${req.files[i].filename}`,
-        });
-        await newItem.addImage(imageSave);
-      }
+    // fucntion create
+    const newItem = await Item.create({
+      categoryId: category.id,
+      title,
+      slug,
+      city,
+      date,
+      startHour,
+      endHour,
+      organizer,
+      description: about,
+      artist,
+      location,
+      ticket,
+    });
+    await category.addItem(newItem);
 
-      // notification
-      req.flash("alertMessage", "Success add item");
-      req.flash("alertStatus", "success");
+    // for (let i = 0; i < req.files.length; i++) {
+    //   const imageSave = await Image.create({
+    //     imageUrl: `images/${req.files[i].filename}`,
+    //   });
+    //   await newItem.addImage(imageSave);
+    // }
 
-      // redirect
-      res.redirect("/admin/item");
-    }
-  } catch (error) {
-    // catch error
-    req.flash("alertMessage", `${error.message}`);
-    req.flash("alertStatus", "danger");
+    // notification
+    req.flash("alertMessage", "Success add item");
+    req.flash("alertStatus", "success");
+
+    // redirect
     res.redirect("/admin/item");
-  }
-};
-
-const showImageItem = async (req, res) => {
-  try {
-    // get id from params
-    const { id } = req.params;
-
-    // function query find by id with relational table
-    const item = await Item.findOne({
-      where: { id: id },
-      include: { model: Image, attributes: ["id", "imageUrl"] },
-    });
-
-    // declare notification
-    const alertMessage = req.flash("alertMessage");
-    const alertStatus = req.flash("alertStatus");
-    const alert = { message: alertMessage, status: alertStatus };
-
-    // render to view page
-    res.render("admin/item/view_item", {
-      alert,
-      item,
-      title: "Suburbia.east | Detail Item",
-      action: "show image",
-    });
+    // }
   } catch (error) {
     // catch error
     req.flash("alertMessage", `${error.message}`);
@@ -971,7 +1066,13 @@ const editItem = async (req, res) => {
       about,
       artist,
       location,
+      ticket,
     } = req.body;
+
+    const slug = slugify(title, {
+      lower: true, // Convert slug to lowercase
+      remove: /[*+~.()'"!:@]/g, // Remove special characters
+    });
 
     // function query find by id with relational table
     const item = await Item.findOne({
@@ -1005,6 +1106,7 @@ const editItem = async (req, res) => {
 
       // declare data from body
       item.title = title;
+      item.slug = slug;
       item.date = date;
       item.startHour = startHour;
       item.endHour = endHour;
@@ -1014,6 +1116,7 @@ const editItem = async (req, res) => {
       item.categoryId = categoryId;
       item.artist = artist;
       item.location = location;
+      item.ticket = ticket;
 
       // function save
       await item.save();
@@ -1029,6 +1132,7 @@ const editItem = async (req, res) => {
     } else {
       // declare data from body
       item.title = title;
+      item.slug = slug;
       item.date = date;
       item.startHour = startHour;
       item.endHour = endHour;
@@ -1038,6 +1142,7 @@ const editItem = async (req, res) => {
       item.categoryId = categoryId;
       item.artist = artist;
       item.location = location;
+      item.ticket = ticket;
 
       // function save
       await item.save();
@@ -1097,96 +1202,38 @@ const deleteItem = async (req, res) => {
   }
 };
 
-/* Gallery */
-
-const viewGallery = async (req, res) => {
-  try {
-    // function query find all item with relational table
-    const gallery = await Gallery.findAll({
-      include: [
-        {
-          model: Artist,
-          attributes: ["id", "firstName", "lastName"],
-        },
-      ],
-    });
-
-    // function get artist for select option
-    const artist = await Artist.findAll();
-
-    // notificiation
-    const alertMessage = req.flash("alertMessage");
-    const alertStatus = req.flash("alertStatus");
-    const alert = { message: alertMessage, status: alertStatus };
-
-    // render to view page
-    res.render("admin/gallery/view_gallery", {
-      gallery,
-      alert,
-      title: "Suburbia.east | Gallery",
-      action: "view",
-      artist,
-    });
-  } catch (error) {
-    // catch error
-    req.flash("alertMessage", `${error.message}`);
-    req.flash("alertStatus", "danger");
-    res.redirect("/admin/gallery");
-  }
-};
-
-const addGallery = async (req, res) => {
-  try {
-    // get all data from body
-    const { artistId, type } = req.body;
-
-    // condition if create with images
-    if (req.files.length > 0) {
-      // function query find by id
-      const artist = await Artist.findOne({
-        where: { id: artistId },
-      });
-
-      // fucntion create
-      const newGallery = await Gallery.create({
-        artistId: artist.id,
-        type,
-      });
-      await artist.addGallery(newGallery);
-
-      // looping for files length
-      for (let i = 0; i < req.files.length; i++) {
-        // fucntion create images
-        const imageSave = await imageGallery.create({
-          imageUrl: `images/${req.files[i].filename}`,
-        });
-        await newGallery.addImageGallery(imageSave);
-      }
-
-      // notification
-      req.flash("alertMessage", "Success add item");
-      req.flash("alertStatus", "success");
-
-      // redirect
-      res.redirect("/admin/gallery");
-    }
-  } catch (error) {
-    // catch error
-    req.flash("alertMessage", `${error.message}`);
-    req.flash("alertStatus", "danger");
-    res.redirect("/admin/gallery");
-  }
-};
-
-const showImageGallery = async (req, res) => {
+const showImageItem = async (req, res) => {
   try {
     // get id from params
     const { id } = req.params;
 
     // function query find by id with relational table
-    const gallery = await Gallery.findOne({
+    const item = await Item.findOne({
       where: { id: id },
-      include: { model: imageGallery, attributes: ["id", "imageUrl"] },
+      include: {
+        model: Image,
+        attributes: ["id", "imageUrl", "isDefault", "isHeader", "category"],
+        order: [
+          [Image, "isDefault", "ASC"],
+          [Image, "isHeader", "ASC"],
+        ],
+      },
+    });
+
+    // Setelah Anda mendapatkan data dari database, Anda dapat melakukan pengurutan dalam JavaScript
+    item.Images.sort((a, b) => {
+      // Prioritaskan yang isDefault dan isHeader sama-sama true
+      if (a.isDefault === true && b.isDefault === false) {
+        return -1; // a lebih dulu
+      } else if (a.isDefault === false && b.isDefault === true) {
+        return 1; // b lebih dulu
+      } else if (a.isHeader === true && b.isHeader === false) {
+        return -1; // a lebih dulu
+      } else if (a.isHeader === false && b.isHeader === true) {
+        return 1; // b lebih dulu
+      } else {
+        return 0; // urutan tetap sama jika tidak ada isDefault atau isHeader yang sama-sama true
+      }
     });
 
     // declare notification
@@ -1194,186 +1241,93 @@ const showImageGallery = async (req, res) => {
     const alertStatus = req.flash("alertStatus");
     const alert = { message: alertMessage, status: alertStatus };
 
-    // console.log(gallery);
-
     // render to view page
-    res.render("admin/gallery/view_gallery", {
+    res.render("admin/item/view_item", {
       alert,
-      gallery,
-      title: "Suburbia.east | Detail Gallery",
+      item: item,
+      title: "Suburbia.east | Detail Item",
       action: "show image",
     });
   } catch (error) {
     // catch error
     req.flash("alertMessage", `${error.message}`);
     req.flash("alertStatus", "danger");
-    res.redirect("/admin/gallery");
+    res.redirect("/admin/item");
   }
 };
 
-const showEditGallery = async (req, res) => {
+const addImageItem = async (req, res) => {
   try {
-    // get id from params
-    const { id } = req.params;
+    const { isDefault, isHeader, category, itemId, artistId } = req.body;
 
-    // function query find by id with relational table
-    const gallery = await Gallery.findOne({
-      where: { id: id },
-      include: [
-        {
-          model: imageGallery,
-          attributes: ["id", "imageUrl"],
-        },
-        {
-          model: Artist,
-          attributes: ["id", "firstName", "lastName", "profilePhoto"],
-        },
-      ],
+    // function save
+    await Image.create({
+      itemId,
+      artistId,
+      category,
+      isDefault,
+      isHeader,
+      imageUrl: `images/${req.file.filename}`,
     });
-
-    // get artist for select option
-    const artist = await Artist.findAll();
 
     // notification
-    const alertMessage = req.flash("alertMessage");
-    const alertStatus = req.flash("alertStatus");
-    const alert = { message: alertMessage, status: alertStatus };
-
-    // render to view page
-    res.render("admin/gallery/view_gallery", {
-      alert,
-      artist,
-      gallery,
-      action: "edit",
-      title: "Suburbia.east | Edit Gallery",
-    });
-  } catch (error) {
-    // catch error
-    req.flash("alertMessage", `${error}`);
-    req.flash("alertStatus", "danger");
-    res.redirect("/admin/gallery");
-  }
-};
-
-const editGallery = async (req, res) => {
-  try {
-    // get id from params
-    const { id } = req.params;
-
-    // get all data from boyd
-    const { artistId, type } = req.body;
-
-    // function query find by id with relational table
-    const gallery = await Gallery.findOne({
-      where: { id: id },
-      include: [
-        {
-          model: imageGallery,
-          attributes: ["id", "imageUrl"],
-        },
-        {
-          model: Artist,
-          attributes: ["id", "firstName", "lastName", "profilePhoto"],
-        },
-      ],
-    });
-
-    // condition edit with images
-    if (req.files.length > 0) {
-      // looping form images length
-
-      /* Masih pertanyaan */
-      for (let i = 0; i < gallery.imageGalleries.length; i++) {
-        // function find by pk
-        const imageUpdate = await imageGallery.findByPk(
-          gallery.imageGalleries[i].id
-        );
-
-        // delete saved images
-        await fs.unlink(path.join(`public/${imageUpdate.imageUrl}`));
-
-        // update with new images
-        imageUpdate.imageUrl = `images/${req.files[i].filename}`;
-        await imageUpdate.save();
-      }
-
-      // declare data from body
-      gallery.type = type;
-      gallery.artistId = artistId;
-
-      // function save
-      await gallery.save();
-
-      // notification
-      req.flash("alertMessage", "Success edit gallery");
-      req.flash("alertStatus", "success");
-
-      // redirect
-      res.redirect("/admin/gallery");
-
-      // condition if edit without images
-    } else {
-      // declare data from body
-      gallery.type = type;
-      gallery.artistId = artistId;
-
-      // function save
-      await gallery.save();
-
-      // notification
-      req.flash("alertMessage", "Success edit gallery");
-      req.flash("alertStatus", "success");
-
-      // redirect
-      res.redirect("/admin/gallery");
-    }
-  } catch (error) {
-    // catch error
-    req.flash("alertMessage", `${error.message}`);
-    req.flash("alertStatus", "danger");
-    res.redirect("/admin/gallery");
-  }
-};
-
-const deleteGallery = async (req, res) => {
-  try {
-    // get id from params
-    const { id } = req.params;
-
-    // function query find by id with relational table
-    const gallery = await Gallery.findOne({
-      where: { id: id },
-      include: {
-        model: imageGallery,
-        attributes: ["id", "imageUrl", "galleryId"],
-      },
-    });
-
-    // looping for images length
-    for (let i = 0; i < gallery.imageGalleries.length; i++) {
-      // function find by pk
-      await imageGallery
-        .findByPk(gallery.imageGalleries[i].id)
-        .then((image) => {
-          // delete saved image
-          fs.unlink(path.join(`public/${image.imageUrl}`));
-        });
-    }
-
-    // delete all data on table
-    await gallery.destroy();
-
-    // notification
-    req.flash("alertMessage", "Success delete gallery");
+    req.flash("alertMessage", "Success add image item");
     req.flash("alertStatus", "success");
 
     // redirect
-    res.redirect("/admin/gallery");
+    res.redirect(`/admin/item/show-image/${itemId}`);
   } catch (error) {
     // catch error
     req.flash("alertMessage", `${error.message}`);
     req.flash("alertStatus", "danger");
-    res.redirect("/admin/gallery");
+    res.redirect(`/admin/item/show-image/${itemId}`);
+  }
+};
+
+const deleteImageItem = async (req, res) => {
+  try {
+    // get data from params
+    const { id } = req.params;
+
+    // function query find by id
+    const getImageId = await Image.findOne({
+      where: {
+        id: id,
+      },
+      attributes: [
+        "id",
+        "isDefault",
+        "isHeader",
+        "category",
+        "itemId",
+        "artistId",
+        "imageUrl",
+      ],
+    });
+
+    const itemId = getImageId.itemId;
+
+    // delete saved image
+    await fs.unlink(path.join(`public/${getImageId.imageUrl}`));
+
+    // delete value by id
+    await Image.destroy({
+      where: {
+        id: id,
+      },
+    });
+
+    // notification
+    req.flash("alertMessage", "Success delete image");
+    req.flash("alertStatus", "success");
+
+    // redirect
+    res.redirect(`/admin/item/show-image/${itemId}`);
+  } catch (error) {
+    // catch error
+    req.flash("alertMessage", `${error.message}`);
+    req.flash("alertStatus", "danger");
+    res.redirect(`/admin/item/${itemId}`);
   }
 };
 
@@ -1408,10 +1362,17 @@ const addArtist = async (req, res) => {
     // get data from body
     const { firstName, lastName } = req.body;
 
+    // generate slug from firstName and lastName
+    const slug = slugify(`${firstName} ${lastName}`, {
+      lower: true, // Convert slug to lowercase
+      remove: /[*+~.()'"!:@]/g, // Remove special characters
+    });
+
     // function create
     await Artist.create({
       firstName,
       lastName,
+      slug,
 
       // create with image
       profilePhoto: `images/${req.file.filename}`,
@@ -1436,12 +1397,17 @@ const editArtist = async (req, res) => {
     // get data from body
     const { id, firstName, lastName } = req.body;
 
+    const slug = slugify(`${firstName} ${lastName}`, {
+      lower: true, // Convert slug to lowercase
+      remove: /[*+~.()'"!:@]/g, // Remove special characters
+    });
+
     // function query find by id
     const artist = await Artist.findOne({
       where: {
         id: id,
       },
-      attributes: ["id", "firstName", "lastName", "profilePhoto"],
+      attributes: ["id", "firstName", "lastName", "slug", "profilePhoto"],
     });
 
     // condition if edit without image
@@ -1450,6 +1416,7 @@ const editArtist = async (req, res) => {
       await artist.update({
         firstName: firstName,
         lastName: lastName,
+        slug: slug,
       });
 
       // notification
@@ -1467,6 +1434,7 @@ const editArtist = async (req, res) => {
       // declare all data include image
       artist.firstName = firstName;
       artist.lastName = lastName;
+      artist.slug = slug;
       artist.profilePhoto = `images/${req.file.filename}`;
 
       // function save
@@ -1555,10 +1523,16 @@ const addAuthor = async (req, res) => {
     // get data from body
     const { firstName, lastName } = req.body;
 
+    const slug = slugify(`${firstName} ${lastName}`, {
+      lower: true, // Convert slug to lowercase
+      remove: /[*+~.()'"!:@]/g, // Remove special characters
+    });
+
     // function create
     await Author.create({
       firstName,
       lastName,
+      slug,
 
       // create with image
       profilePhoto: `images/${req.file.filename}`,
@@ -1583,12 +1557,17 @@ const editAuthor = async (req, res) => {
     // get data from body
     const { id, firstName, lastName } = req.body;
 
+    const slug = slugify(`${firstName} ${lastName}`, {
+      lower: true, // Convert slug to lowercase
+      remove: /[*+~.()'"!:@]/g, // Remove special characters
+    });
+
     // function query find by id
     const author = await Author.findOne({
       where: {
         id: id,
       },
-      attributes: ["id", "firstName", "lastName", "profilePhoto"],
+      attributes: ["id", "firstName", "lastName", "slug", "profilePhoto"],
     });
 
     // condition if edit without image
@@ -1597,6 +1576,7 @@ const editAuthor = async (req, res) => {
       await author.update({
         firstName: firstName,
         lastName: lastName,
+        slug: slug,
       });
 
       // notification
@@ -1614,6 +1594,7 @@ const editAuthor = async (req, res) => {
       // declare all data include image
       author.firstName = firstName;
       author.lastName = lastName;
+      author.slug = slug;
       author.profilePhoto = `images/${req.file.filename}`;
 
       // function save
@@ -1702,16 +1683,12 @@ module.exports = {
   addArtist,
   editArtist,
   deleteArtist,
-  viewGallery,
-  addGallery,
-  showImageGallery,
-  showEditGallery,
-  editGallery,
-  deleteGallery,
   viewAuthor,
   addAuthor,
   editAuthor,
   deleteAuthor,
-  // viewAddImageMerchandise,
   addImageMerchandise,
+  deleteImageMerchandise,
+  addImageItem,
+  deleteImageItem,
 };

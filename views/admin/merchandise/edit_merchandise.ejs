@@ -74,11 +74,11 @@
               <option value="false" <%= (merchandise.isSold === false) ? 'selected' : '' %>>Available</option>
             </select>
           </div>
-          <div class="form-group col-md-9">
-              <label for="name">Image</label>
-              <input type="file" class="form-control" name="image" multiple>
-          </div>
         </div>
+        <div class="form-group">
+          <label for="name">Description</label>
+          <textarea name="about" class="form-control"><%= merchandise.description %></textarea>
+        </div>  
         <button type="submit" class="btn btn-primary">Save</button>
   </form>
 </div>

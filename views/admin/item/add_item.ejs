@@ -4,110 +4,213 @@
   role="tabpanel"
   aria-labelledby="profile-tab"
 >
-  <form action="/admin/item" method="POST" enctype="multipart/form-data">
-    <div class="card shadow mb-4 mt-2">
-      <div class="card-body">
-        <div class="row">
-          <div class="form-group col-md-4">
-            <label for="name">Title</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter title"
-              name="title"
-              required
-            />
-          </div>
-          <div class="form-group col-md-4">
-            <label for="name">Category</label>
-            <select id="select-state" name="categoryId">
-              <option value="">--- select optional category ---</option>
-              <% for(let i = 0; i < category.length; i++){ %>
-                <option value="<%= category[i].id %>"><%= i + 1 %>. <%= category[i].name %></option>
-              <% } %>
-            </select>
-          </div>  
-          <div class="form-group col-md-4">
-            <label for="name">Artist</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter artist"
-              name="artist"
-              required
-            />
+  <div class="row">
+    <div class="col-md-8">
+      <form action="/admin/item" method="POST" enctype="multipart/form-data">
+        <div class="card shadow mb-4 mt-2">
+          <div class="card-body">
+            <div class="row d-flex align-items-stretch">
+              <div class="form-group col-md-4">
+                <label for="name">Title</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter title"
+                  name="title"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-4">
+                <label for="name">Category</label>
+                <select id="select-state" name="categoryId">
+                  <option value="">--- select optional category ---</option>
+                  <% for(let i = 0; i < category.length; i++){ %>
+                  <option value="<%= category[i].id %>">
+                    <%= i + 1 %>. <%= category[i].name %>
+                  </option>
+                  <% } %>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="name">Artist</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter artist"
+                  name="artist"
+                  required
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-3">
+                <label for="name">City</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter city"
+                  name="city"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-3">
+                <label for="name">Location</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter location"
+                  name="location"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-3">
+                <label for="name">Ticket</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter ticket"
+                  name="ticket"
+                  required
+                />
+              </div>
+
+              <div class="form-group col-md-3">
+                <label for="name">Organized by</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter organizer"
+                  name="organizer"
+                  required
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label for="name">Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  placeholder="Enter date"
+                  name="date"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-4">
+                <label for="name">Start Hour</label>
+                <input
+                  type="time"
+                  class="form-control"
+                  name="startHour"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-4">
+                <label for="name">End Hour</label>
+                <input
+                  type="time"
+                  class="form-control"
+                  name="endHour"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="name">Description</label>
+              <textarea name="about" class="form-control"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
           </div>
         </div>
-        <div class="row">
-          <div class="form-group col-md-4">
-            <label for="name">City</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter city"
-              name="city"
-              required
-            />
-          </div>
-          <div class="form-group col-md-4">
-            <label for="name">Location</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter location"
-              name="location"
-              required
-            />
-          </div>
-          <div class="form-group col-md-4">
-            <label for="name">Organized by</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter organizer"
-              name="organizer"
-              required
-            />
+      </form>
+    </div>
+    <div class="col-md-4" style="display: flex; flex-direction: column">
+      <form
+        action="/admin/image-item"
+        method="POST"
+        enctype="multipart/form-data"
+        style="
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        "
+      >
+        <div class="card shadow mb-4 mt-2" style="flex-grow: 1">
+          <div class="card-body">
+            <h4 class="card-title text-center">Image Item</h4>
+            <div class="form-group">
+              <label for="name">Item</label>
+              <select id="select-state-item" name="itemId">
+                <option value="">--- select optional item ---</option>
+                <% for(let i = 0; i < selectItem.length; i++){ %>
+                <option value="<%= selectItem[i].id %>">
+                  <%= i + 1 %>. <%= selectItem[i].title %>
+                </option>
+                <% } %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="name">Artist</label>
+              <select id="select-state-artist" name="artistId">
+                <option value="">--- select optional artist ---</option>
+                <% for(let i = 0; i < selectArtist.length; i++){ %>
+                <option value="<%= selectArtist[i].id %>">
+                  <%= i + 1 %>. <%= selectArtist[i].firstName %> <%=
+                  selectArtist[i].lastName %>
+                </option>
+                <% } %>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="name">Category</label>
+              <select id="select-state-category" name="category">
+                <option value="">--- select optional category ---</option>
+                <option value="photo">1. Photo</option>
+                <option value="artwork">2. Artwork</option>
+              </select>
+            </div>
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <div class="form-check form-switch">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexSwitchCheckDefault"
+                    name="isDefault"
+                    value="true"
+                  />
+                  <label class="form-check-label" for="flexSwitchCheckDefault"
+                    >Set as thumbnail</label
+                  >
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-check form-switch">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="flexSwitchCheckHeader"
+                    name="isHeader"
+                    value="true"
+                  />
+                  <label class="form-check-label" for="flexSwitchCheckHeader"
+                    >Set as header</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="name">Image</label>
+              <input type="file" class="form-control" name="image" required />
+            </div>
+            <div style="position: absolute; bottom: 0; left: 0; padding: 10px">
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="form-group col-md-4">
-            <label for="name">Date</label>
-            <input
-              type="date"
-              class="form-control"
-              placeholder="Enter date"
-              name="date"
-              required
-            />
-          </div>
-          <div class="form-group col-md-4">
-            <label for="name">Start Hour</label>
-            <input
-              type="time"
-              class="form-control"
-              name="startHour"
-              required
-            />
-          </div>
-          <div class="form-group col-md-4">
-            <label for="name">End Hour</label>
-            <input
-              type="time"
-              class="form-control"
-              name="endHour"
-              required
-            />
-          </div>
-        </div>
-        <div class="form-group">
-            <label for="name">Description</label>
-            <textarea name="about" class="form-control"></textarea>
-        </div>
-          <div class="form-group col-md-4">
-            <label for="name">Image</label>
-            <input type="file" class="form-control" name="image" multiple required>
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-  </form>
+      </form>
+    </div>
+  </div>
 </div>
