@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Apr 2024 pada 19.15
--- Versi server: 10.4.28-MariaDB
--- Versi PHP: 8.2.4
+-- Generation Time: Jul 02, 2025 at 04:58 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `artists`
+-- Table structure for table `artists`
 --
 
 CREATE TABLE `artists` (
@@ -38,7 +38,7 @@ CREATE TABLE `artists` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `artists`
+-- Dumping data for table `artists`
 --
 
 INSERT INTO `artists` (`id`, `firstName`, `lastName`, `slug`, `profilePhoto`, `createdAt`, `updatedAt`) VALUES
@@ -48,7 +48,7 @@ INSERT INTO `artists` (`id`, `firstName`, `lastName`, `slug`, `profilePhoto`, `c
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `authors`
+-- Table structure for table `authors`
 --
 
 CREATE TABLE `authors` (
@@ -62,7 +62,7 @@ CREATE TABLE `authors` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `authors`
+-- Dumping data for table `authors`
 --
 
 INSERT INTO `authors` (`id`, `firstName`, `lastName`, `slug`, `profilePhoto`, `createdAt`, `updatedAt`) VALUES
@@ -71,7 +71,7 @@ INSERT INTO `authors` (`id`, `firstName`, `lastName`, `slug`, `profilePhoto`, `c
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
@@ -83,7 +83,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`, `slug`, `createdAt`, `updatedAt`) VALUES
@@ -94,7 +94,7 @@ INSERT INTO `categories` (`id`, `name`, `slug`, `createdAt`, `updatedAt`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `imagemerchandises`
+-- Table structure for table `imagemerchandises`
 --
 
 CREATE TABLE `imagemerchandises` (
@@ -107,7 +107,7 @@ CREATE TABLE `imagemerchandises` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `imagemerchandises`
+-- Dumping data for table `imagemerchandises`
 --
 
 INSERT INTO `imagemerchandises` (`id`, `imageUrl`, `isDefault`, `createdAt`, `updatedAt`, `merchandiseId`) VALUES
@@ -122,7 +122,7 @@ INSERT INTO `imagemerchandises` (`id`, `imageUrl`, `isDefault`, `createdAt`, `up
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `images`
+-- Table structure for table `images`
 --
 
 CREATE TABLE `images` (
@@ -138,7 +138,7 @@ CREATE TABLE `images` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `images`
+-- Dumping data for table `images`
 --
 
 INSERT INTO `images` (`id`, `imageUrl`, `isDefault`, `isHeader`, `category`, `createdAt`, `updatedAt`, `itemId`, `artistId`) VALUES
@@ -153,7 +153,7 @@ INSERT INTO `images` (`id`, `imageUrl`, `isDefault`, `isHeader`, `category`, `cr
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `items`
+-- Table structure for table `items`
 --
 
 CREATE TABLE `items` (
@@ -176,7 +176,7 @@ CREATE TABLE `items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `items`
+-- Dumping data for table `items`
 --
 
 INSERT INTO `items` (`id`, `title`, `slug`, `artist`, `location`, `city`, `country`, `date`, `startHour`, `endHour`, `organizer`, `description`, `ticket`, `createdAt`, `updatedAt`, `categoryId`) VALUES
@@ -187,7 +187,7 @@ INSERT INTO `items` (`id`, `title`, `slug`, `artist`, `location`, `city`, `count
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `merchandises`
+-- Table structure for table `merchandises`
 --
 
 CREATE TABLE `merchandises` (
@@ -205,7 +205,7 @@ CREATE TABLE `merchandises` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `merchandises`
+-- Dumping data for table `merchandises`
 --
 
 INSERT INTO `merchandises` (`id`, `title`, `slug`, `price`, `size`, `shopeeUrl`, `tokopediaUrl`, `description`, `isSold`, `createdAt`, `updatedAt`) VALUES
@@ -218,7 +218,7 @@ INSERT INTO `merchandises` (`id`, `title`, `slug`, `price`, `size`, `shopeeUrl`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `news`
+-- Table structure for table `news`
 --
 
 CREATE TABLE `news` (
@@ -236,7 +236,7 @@ CREATE TABLE `news` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `news`
+-- Dumping data for table `news`
 --
 
 INSERT INTO `news` (`id`, `title`, `slug`, `artist`, `date`, `description`, `imageUrl`, `type`, `createdAt`, `updatedAt`, `authorId`) VALUES
@@ -248,7 +248,7 @@ INSERT INTO `news` (`id`, `title`, `slug`, `artist`, `date`, `description`, `ima
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `roosters`
+-- Table structure for table `roosters`
 --
 
 CREATE TABLE `roosters` (
@@ -267,7 +267,7 @@ CREATE TABLE `roosters` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `roosters`
+-- Dumping data for table `roosters`
 --
 
 INSERT INTO `roosters` (`id`, `nameBand`, `slug`, `city`, `genre`, `country`, `instagram`, `spotify`, `description`, `imageUrl`, `createdAt`, `updatedAt`) VALUES
@@ -283,32 +283,32 @@ INSERT INTO `roosters` (`id`, `nameBand`, `slug`, `city`, `genre`, `country`, `i
 --
 
 --
--- Indeks untuk tabel `artists`
+-- Indexes for table `artists`
 --
 ALTER TABLE `artists`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `authors`
+-- Indexes for table `authors`
 --
 ALTER TABLE `authors`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `categories`
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `imagemerchandises`
+-- Indexes for table `imagemerchandises`
 --
 ALTER TABLE `imagemerchandises`
   ADD PRIMARY KEY (`id`),
   ADD KEY `merchandiseId` (`merchandiseId`);
 
 --
--- Indeks untuk tabel `images`
+-- Indexes for table `images`
 --
 ALTER TABLE `images`
   ADD PRIMARY KEY (`id`),
@@ -316,114 +316,114 @@ ALTER TABLE `images`
   ADD KEY `artistId` (`artistId`);
 
 --
--- Indeks untuk tabel `items`
+-- Indexes for table `items`
 --
 ALTER TABLE `items`
   ADD PRIMARY KEY (`id`),
   ADD KEY `categoryId` (`categoryId`);
 
 --
--- Indeks untuk tabel `merchandises`
+-- Indexes for table `merchandises`
 --
 ALTER TABLE `merchandises`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `news`
+-- Indexes for table `news`
 --
 ALTER TABLE `news`
   ADD PRIMARY KEY (`id`),
   ADD KEY `authorId` (`authorId`);
 
 --
--- Indeks untuk tabel `roosters`
+-- Indexes for table `roosters`
 --
 ALTER TABLE `roosters`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `artists`
+-- AUTO_INCREMENT for table `artists`
 --
 ALTER TABLE `artists`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `authors`
+-- AUTO_INCREMENT for table `authors`
 --
 ALTER TABLE `authors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `categories`
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `imagemerchandises`
+-- AUTO_INCREMENT for table `imagemerchandises`
 --
 ALTER TABLE `imagemerchandises`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT untuk tabel `images`
+-- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT untuk tabel `items`
+-- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `merchandises`
+-- AUTO_INCREMENT for table `merchandises`
 --
 ALTER TABLE `merchandises`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `news`
+-- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `roosters`
+-- AUTO_INCREMENT for table `roosters`
 --
 ALTER TABLE `roosters`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `imagemerchandises`
+-- Constraints for table `imagemerchandises`
 --
 ALTER TABLE `imagemerchandises`
   ADD CONSTRAINT `imagemerchandises_ibfk_1` FOREIGN KEY (`merchandiseId`) REFERENCES `merchandises` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `images`
+-- Constraints for table `images`
 --
 ALTER TABLE `images`
   ADD CONSTRAINT `images_ibfk_1` FOREIGN KEY (`itemId`) REFERENCES `items` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `images_ibfk_2` FOREIGN KEY (`artistId`) REFERENCES `artists` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `items`
+-- Constraints for table `items`
 --
 ALTER TABLE `items`
   ADD CONSTRAINT `items_ibfk_1` FOREIGN KEY (`categoryId`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `news`
+-- Constraints for table `news`
 --
 ALTER TABLE `news`
   ADD CONSTRAINT `news_ibfk_1` FOREIGN KEY (`authorId`) REFERENCES `authors` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
