@@ -1,0 +1,30 @@
+<div
+  class="tab-pane fade"
+  id="add-hotnews"
+  role="tabpanel"
+  aria-labelledby="profile-tab"
+>
+  <div class="row">
+    <div class="col-md-8">
+      <form action="/admin/hot-news" method="POST" enctype="multipart/form-data">
+        <div class="card shadow mb-4 mt-2">
+          <div class="card-body">
+            <div class="row d-flex align-items-stretch">
+              <div class="form-group col-md-4">
+                <label for="name">News</label>
+                <select id="select-state" name="newsId">
+                  <option value="">--- select optional news ---</option>
+                  <% for(let i = 0; i < news.length; i++){ %>
+                    <option value="<%= news[i].id %>">
+                      <%= i + 1 %>. <%= news[i].title %>
+                    </option>
+                    <% } %>
+                </select>
+              </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

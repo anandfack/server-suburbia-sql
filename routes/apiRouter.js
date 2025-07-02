@@ -13,5 +13,8 @@ router.get("/merchandise-page/:slug", apiController.detailMerchandise);
 router.get("/recent-show-page", apiController.recentShowPage);
 router.get("/recent-show-page/:slug", apiController.detailShowPage);
 router.get("/author-page/:slug", apiController.detailAuthorPage);
+router.get("/image-show-page", apiController.imageShowPage);
+router.get("/artwork-show-page", apiController.artworkShowPage);
+router.get("/artist-page/:slug", apiController.detailArtistPage);
 
 module.exports = router;

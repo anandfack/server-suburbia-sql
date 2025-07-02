@@ -42,6 +42,11 @@ router.post("/news", upload, adminController.addNews);
 router.put("/news", upload, adminController.editNews);
 router.delete("/news/:id", adminController.deleteNews);
 
+// endpoint hot news
+router.get("/hot-news", adminController.viewHotNews);
+router.post("/hot-news", adminController.addHotNews);
+// router.delete("/hotnews/:id", adminController.deleteHotNews);
+
 // endpoint item
 router.get("/item", adminController.viewItem);
 router.post("/item", uploadMultiple, adminController.addItem);

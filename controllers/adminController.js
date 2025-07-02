@@ -8,6 +8,7 @@ const {
   Image,
   Artist,
   Author,
+  hotNews,
 } = require("../models/model");
 
 const path = require("path");
@@ -1652,6 +1653,84 @@ const deleteAuthor = async (req, res) => {
   }
 };
 
+/* Hot News */
+
+const viewHotNews = async (req, res) => {
+  try {
+    // function query find all news data
+    const hotNewss = await hotNews.findAll({
+      attributes: ["id"],
+      include: {
+        model: News,
+      },
+    });
+
+    const news = await News.findAll();
+
+    // declare notification
+    const alertMessage = req.flash("alertMessage");
+    const alertStatus = req.flash("alertStatus");
+    const alert = { message: alertMessage, status: alertStatus };
+
+    // render data to view page
+    res.render("admin/hot-news/view_hotnews", {
+      alert,
+      hotNewss,
+      news,
+      title: "Suburbia.east | Hot News",
+    });
+  } catch (error) {
+    // catch error
+    req.flash("alertMessage", `${error.message}`);
+    req.flash("alertStatus", "danger");
+    res.redirect("/admin/hot-news");
+  }
+};
+
+const addHotNews = async (req, res) => {
+  try {
+    console.log(req.body);
+    // const { newsId } = req.body;
+
+    // if (!newsId) {
+    //   throw new Error("News ID is required");
+    // }
+
+    // await hotNews.create({
+    //   newsId: newsId,
+    // });
+
+    // req.flash("alertMessage", "Success add hot news");
+    // req.flash("alertStatus", "success");
+
+    // res.redirect("/admin/hotnews");
+  } catch (error) {
+    console.log(`error: `, error);
+    // req.flash("alertMessage", `${error.message}`);
+    // req.flash("alertStatus", "danger");
+    // res.redirect("/admin/hot-news");
+  }
+};
+
+// const deleteHotNews = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+
+//     await hotNews.destroy({
+//       where: { id: id },
+//     });
+
+//     req.flash("alertMessage", "Success delete hotnews");
+//     req.flash("alertStatus", "success");
+
+//     res.redirect("/admin/hotnews");
+//   } catch (error) {
+//     req.flash("alertMessage", `${error.message}`);
+//     req.flash("alertStatus", "danger");
+//     res.redirect("/admin/hotnews");
+//   }
+// };
+
 module.exports = {
   viewDashboard,
   viewCategory,
@@ -1691,4 +1770,7 @@ module.exports = {
   deleteImageMerchandise,
   addImageItem,
   deleteImageItem,
+  viewHotNews,
+  // deleteHotNews,
+  addHotNews,
 };

@@ -26,22 +26,13 @@ module.exports = {
       const recentShow = await Item.findAll({
         order: [["date", "DESC"]],
         limit: 1,
-        attributes: ["id", "slug", "title"],
+        attributes: ["id", "slug", "title", "organizer"],
         include: [
           {
             model: Image,
-            attributes: ["id", "isDefault", "category", "imageUrl"],
+            attributes: ["id", "isHeader", "imageUrl"],
+            where: { isHeader: true },
             limit: 1,
-            include: [
-              {
-                model: Artist,
-                attributes: ["id", "firstName", "lastName", "profilePhoto"],
-              },
-            ],
-          },
-          {
-            model: Category,
-            attributes: ["id", "slug", "name"],
           },
         ],
       });
@@ -69,6 +60,7 @@ module.exports = {
           {
             model: imageMerchandise,
             attributes: ["id", "isDefault", "imageUrl"],
+            where: { isDefault: true },
             limit: 1,
           },
         ],
@@ -101,7 +93,7 @@ module.exports = {
 
       const allNews = await News.findAll({
         order: [["date", "DESC"]],
-        attributes: ["id", "title", "date", "slug", "type", "imageUrl"],
+        attributes: ["id", "title", "slug", "type", "imageUrl"],
         include: {
           model: Author,
           attributes: ["id", "firstName", "lastName"],
@@ -310,13 +302,8 @@ module.exports = {
           },
           {
             model: Image,
-            attributes: ["id", "imageUrl", "isDefault", "category"],
-            include: [
-              {
-                model: Artist,
-                attributes: ["id", "firstName", "lastName", "profilePhoto"],
-              },
-            ],
+            attributes: ["id", "imageUrl", "isDefault"],
+            where: { isDefault: true },
           },
         ],
       });
@@ -348,25 +335,47 @@ module.exports = {
           "endHour",
           "organizer",
           "ticket",
+          "description",
         ],
         include: [
           {
             model: Image,
-            attributes: ["id", "imageUrl"],
-          },
-          {
-            model: Category,
-            attributes: ["id", "name", "slug"],
+            attributes: ["id", "isDefault", "isHeader", "imageUrl"],
+            where: { isHeader: true },
           },
         ],
       });
 
-      if (!detailShow) {
+      const gallery = await Item.findOne({
+        where: { slug },
+        attributes: ["id", "title", "slug"],
+        include: [
+          {
+            model: Image,
+            attributes: ["id", "isDefault", "isHeader", "artistId", "imageUrl"],
+            where: { isHeader: false },
+            include: [
+              {
+                model: Artist,
+                attributes: [
+                  "id",
+                  "firstName",
+                  "lastName",
+                  "slug",
+                  "profilePhoto",
+                ],
+              },
+            ],
+          },
+        ],
+      });
+
+      if (!detailShow && !gallery) {
         return response(404, null, "show not found", false, res);
-      } else if (detailShow.slug !== slug) {
+      } else if (detailShow.slug && gallery.slug !== slug) {
         return response(404, null, "show not found", false, res);
       } else {
-        response(200, { detailShow }, "Success get detail", true, res);
+        response(200, { detailShow, gallery }, "Success get detail", true, res);
       }
     } catch (error) {
       response(500, error, "internal server error!", false, res);
@@ -428,6 +437,87 @@ module.exports = {
       }
     } catch (error) {
       response(500, error, "internal server error", false, res);
+    }
+  },
+
+  imageShowPage: async (req, res) => {
+    try {
+      const allImage = await Image.findAll({
+        where: { category: "photo" },
+        attributes: ["id", "imageUrl", "category"],
+        include: [
+          {
+            model: Artist,
+            attributes: ["id", "firstName", "lastName", "slug", "profilePhoto"],
+          },
+        ],
+      });
+      if (!allImage) {
+        return response(404, null, "page not found", false, res);
+      }
+
+      response(200, { allImage }, "success get image", true, res);
+    } catch (error) {
+      response(500, "internal server error", false, res);
+    }
+  },
+
+  artworkShowPage: async (req, res) => {
+    try {
+      const allArtwork = await Image.findAll({
+        where: { category: "artwork" },
+        attributes: ["id", "imageUrl", "category"],
+        include: [
+          {
+            model: Artist,
+            attributes: ["id", "firstName", "lastName", "slug", "profilePhoto"],
+          },
+        ],
+      });
+      if (!allArtwork) {
+        return response(404, null, "page not found", false, res);
+      }
+
+      response(200, { allArtwork }, "success get image", true, res);
+    } catch (error) {
+      response(500, "internal server error", false, res);
+    }
+  },
+
+  detailArtistPage: async (req, res) => {
+    try {
+      const { slug } = req.params;
+
+      const detailArtist = await Artist.findOne({
+        where: { slug },
+        attributes: ["id", "firstName", "lastName", "slug", "profilePhoto"],
+      });
+
+      if (detailArtist) {
+        const gallery = await Image.findAll({
+          attributes: [
+            "id",
+            "imageUrl",
+            "category",
+            "isDefault",
+            "isHeader",
+            "artistId",
+            "itemId",
+          ],
+          where: { artistId: detailArtist.id },
+        });
+        response(
+          200,
+          { detailArtist, gallery },
+          "berhasil mengambil data",
+          true,
+          res
+        );
+      } else {
+        return response(404, "artist not found", false, res);
+      }
+    } catch (error) {
+      return response(500, "internal server error", false, res);
     }
   },
 };

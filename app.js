@@ -48,6 +48,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// Menggunakan body-parser untuk mem-parsing body permintaan HTTP
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 // template sb-admin-2
 app.use(
   "/sb-admin-2",

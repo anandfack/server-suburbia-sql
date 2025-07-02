@@ -367,6 +367,68 @@ const Author = sequelize.define("Author", {
   },
 });
 
+const hotNews = sequelize.define("hotNews", {
+  newsId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  // title: {
+  //   type: DataTypes.STRING,
+  //   allowNull: false,
+  // },
+});
+
+const editorPicks = sequelize.define("editorPicks", {
+  newsId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+});
+
+const imageArtist = sequelize.define("imageArtist", {
+  imageUrl: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      max: 150,
+    },
+  },
+  isThumbnail: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+  isProfilePicture: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+});
+
+News.hasMany(hotNews, {
+  foreignKey: "newsId",
+});
+
+hotNews.belongsTo(News, {
+  foreignKey: "newsId",
+});
+
+News.hasMany(editorPicks, {
+  foreignKey: "newsId",
+});
+
+editorPicks.belongsTo(News, {
+  foreignKey: "newsId",
+});
+
+Artist.hasMany(imageArtist, {
+  foreignKey: "artistId",
+});
+
+imageArtist.belongsTo(Artist, {
+  foreignKey: "artistId",
+});
+
 Item.hasMany(Image, {
   foreignKey: "itemId",
 });
@@ -435,6 +497,9 @@ module.exports = {
   // imageGallery,
   Artist,
   Author,
+  hotNews,
+  editorPicks,
+  imageArtist,
 };
 
 // Sinkronisasi model dengan database
@@ -446,4 +511,14 @@ module.exports = {
 //   })
 //   .catch((error) => {
 //     console.error("Tidak dapat membuat tabel:", error);
+//   });
+
+// update data
+// sequelize
+//   .sync({ alter: true })
+//   .then(() => {
+//     console.log("Struktur tabel berhasil diperbarui");
+//   })
+//   .catch((error) => {
+//     console.error("Tidak dapat memperbarui struktur tabel:", error);
 //   });
