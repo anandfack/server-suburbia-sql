@@ -1,4 +1,4 @@
 # server-suburbia-sql
 
-database : mysql
+database : mysql<br>
 jalankan aplikasi menggunakan perintah "npm start"
